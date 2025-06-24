@@ -25,7 +25,7 @@ $result = mysqli_query($conn, $query);
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
@@ -38,10 +38,12 @@ $result = mysqli_query($conn, $query);
     <table>
         <tr>
             <th>Booking ID</th>
-            <th>User ID</th>
+            <th>Email ID</th>
+            <th>User name </th>
             <th>Restaurant Name</th>
             <th>Date</th>
             <th>Time</th>
+
         </tr>
         <?php while($booking = mysqli_fetch_assoc($result)): ?>
         <tr>

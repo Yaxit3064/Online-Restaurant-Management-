@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="course_view_tree" model="ir.ui.view">
+            <field name="name">course.model.tree</field>
+            <field name="model">course.model</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="title"/>
+                    <field name="user"/>
+                    <field name="responsible_id"/>
+                    <field name="description"/>
+                    <field name="additional_information"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="course_view_form" model="ir.ui.view">
+            <field name="name">course.model.form</field>
+            <field name="model">course.model</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="title" help="Name of Course"/>
+                            <field name="user" help="Name of users"/>
+                            <field name="responsible_id"/>
+                        </group>
+                        <notebook>
+                            <page string="Description">
+                                <field name="description" help="course description"/>
+                            </page>
+                            <page string="Additional Information">
+                                <field name="additional_information"/>
+                            </page>
+                            <page string="Sessions">
+                                <field name="session_ids"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="course_view_search" model="ir.ui.view">
+            <field name="name">course.model.search</field>
+            <field name="model">course.model</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="title"/>
+                    <field name="description"/>
+                    <filter name="my_courses" string="My Courses"
+                            domain="[('responsible_id', '=', uid)]"/>
+                    <group string="Group By">
+                        <filter name="by_responsible" string="Responsible"
+                                context="{'group_by': 'responsible_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="action_course_view" model="ir.actions.act_window">
+            <field name="name">Course</field>
+            <field name="res_model">course.model</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_my_courses':1}</field>
+            <field name="view_id" ref="course_view_tree"/>
+        </record>
+        <menuitem id="menu_open_academy_root" name="OpenAcademy" sequence="1"/>
+        <menuitem id="menu_course_view" name="Course" sequence="2"
+                  parent="menu_open_academy_root" action="action_course_view"/>
+        <menuitem id="menu_session_view" name="Session" sequence="3"
+                  parent="menu_open_academy_root" action="action_session_view"/>
+    </data>
+</odoo>
